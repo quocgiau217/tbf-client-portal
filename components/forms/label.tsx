@@ -6,7 +6,7 @@ export function Label({
   ...props
 }: { children: React.ReactNode } & React.JSX.IntrinsicElements["label"]) {
   return (
-    <label className={cn("text-sm font-medium", props.className)} {...props}>
+    <label className={cn("text-sm text-black font-medium", props.className)} {...props}>
       {children}
     </label>
   );

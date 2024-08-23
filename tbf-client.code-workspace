@@ -1,0 +1,14 @@
+{
+  "folders": [
+	{
+		"path": "../tbf-client"
+	},
+	{
+		"path": "../BlogFeedback_ML"
+	},
+	{
+		"path": "."
+	}
+],
+  "settings": {}
+}

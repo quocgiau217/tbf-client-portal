@@ -30,7 +30,7 @@ export default async function AuthButton() {
     <div className="flex gap-2">
       <Link
         href="/login"
-        className="h-8 flex items-center justify-center rounded-md no-underline text-sm font-medium px-4"
+        className="h-8 flex items-center justify-center rounded-md no-underline bg-black text-sm font-medium px-4"
       >
         Login
       </Link>

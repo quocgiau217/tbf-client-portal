@@ -73,8 +73,8 @@ export default function ForgotPassword({
       </Link>
 
       <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground [&>input]:mb-6 max-w-md p-4">
-        <h1 className="text-2xl font-medium">Reset Password</h1>
-        <p className="text-sm text-foreground/60">
+        <h1 className="text-2xl text-black font-medium">Reset Password</h1>
+        <p className="text-sm text-black text-foreground/60">
           Already have an account?{" "}
           <Link className="text-blue-600 font-medium underline" href="/login">
             Log in
