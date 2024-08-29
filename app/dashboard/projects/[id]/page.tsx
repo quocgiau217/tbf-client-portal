@@ -1,8 +1,8 @@
 "use client";
 
 import { useParams, useRouter } from 'next/navigation';
-import TopBar from 'D:/client-portal-tbf/components/TopBar';
-import SyncfusionGantt from 'D:/client-portal-tbf/components/SyncfusionGantt';
+import TopBar from '../../../../components/TopBar';
+import SyncfusionGantt from '../../../../components/SyncfusionGantt';
 import { registerLicense } from '@syncfusion/ej2-base';
 
 // Thay thế 'your-license-key' bằng key mà bạn đã nhận được từ Syncfusion
