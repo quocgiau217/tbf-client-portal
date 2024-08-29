@@ -3,6 +3,11 @@ import AuthButton from "../components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import { FaProjectDiagram } from 'react-icons/fa';
 import { IoMdLogIn } from 'react-icons/io';
+import { registerLicense } from '@syncfusion/ej2-base';
+
+// Thay thế 'your-license-key' bằng key mà bạn đã nhận được từ Syncfusion
+registerLicense('Ngo9BigBOggjHTQxAR8/V1NCaF1cXGJCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXdceHZWQ2FeUUByWEQ=');
+
 export default async function Index() {
   const canInitSupabaseClient = () => {
     // This function is just for the interactive tutorial.
@@ -55,7 +60,7 @@ export default async function Index() {
               Login to your Account
             </a>
             <a
-              href="/projects"
+              href="/dashboard/projects"
               className="flex items-center px-6 py-3 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 transition-all duration-300 transform hover:scale-105"
             >
               <FaProjectDiagram className="mr-2" size={24} />

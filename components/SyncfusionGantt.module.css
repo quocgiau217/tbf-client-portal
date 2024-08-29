@@ -1,0 +1,44 @@
+.ganttContainer {
+    margin: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
+    /* Đặt màu văn bản thành màu tối */
+}
+
+.syncfusionGantt h2 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.syncfusionGantt .e-gantt {
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+.syncfusionGantt .e-headercell,
+.syncfusionGantt .e-rowcell {
+    font-size: 0.875rem;
+    color: #333 !important;
+    /* Đảm bảo màu văn bản là màu tối */
+}
+
+.syncfusionGantt .e-headertext {
+    color: #333 !important;
+    /* Màu văn bản trong tiêu đề */
+}
+
+.syncfusionGantt .e-toolbar-item {
+    color: #333 !important;
+    /* Màu văn bản trong toolbar */
+}
+
+.syncfusionGantt .e-ganttchart {
+    height: 100%;
+    overflow-x: auto;
+    /* Thêm thanh cuộn ngang nếu cần */
+    white-space: nowrap;
+    /* Đảm bảo không cắt mất nội dung */
+}

@@ -25,3 +25,150 @@
     @apply border-foreground/20;
   }
 }
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.bg-gray-100 {
+  background-color: #f7fafc;
+}
+
+.bg-gray-800 {
+  background-color: #2d3748;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-gray-600 {
+  color: black;
+}
+
+.sidebar {
+  width: 250px;
+  /* Chiều rộng cố định cho sidebar */
+  height: 100vh;
+  background-color: #1a73e8;
+  color: #fff;
+  position: fixed;
+  /* Đảm bảo sidebar luôn nằm cố định */
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px 20px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.25rem;
+}
+
+.sidebar a:hover {
+  background-color: #0b57d0;
+  border-radius: 5px;
+}
+
+.dashboardContainer {
+  padding: 20px;
+  background-color: #f1f3f4;
+  margin-left: 250px;
+  /* Tránh bị sidebar đè lên */
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.dashboardHeader {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #202124;
+}
+
+.projectList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.projectCard {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #1a73e8;
+  color: #202124;
+}
+
+.projectCard h3 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.projectCard p {
+  margin: 0;
+  color: #5f6368;
+}
+
+.projectCard .status {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #202124;
+}
+
+.projectCard a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.projectCard a:hover {
+  text-decoration: underline;
+}
+.mainContent {
+  margin-left: 250px;
+  /* Đảm bảo nội dung chính không bị sidebar đè lên */
+  padding: 20px;
+  flex-grow: 1;
+  /* Đảm bảo nội dung chính chiếm hết không gian còn lại */
+  background-color: #f1f3f4;
+  min-height: 100vh;
+}
+.flex {
+  display: flex;
+  /* Đảm bảo container chiếm toàn bộ chiều cao màn hình */
+}
+.flex-dash {
+  display: flex;
+  width: 200vh;
+  /* Đảm bảo container chiếm toàn bộ chiều cao màn hình */
+}

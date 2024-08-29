@@ -52,7 +52,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
 
       <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground [&>input]:mb-6 max-w-md p-4">
         <h1 className="text-2xl text-black font-medium">Log in</h1>
-        <p className="text-sm text-black text-foreground/60">
+        <p className="text-sm text-black ">
           Don't have an account?{" "}
           <Link className="text-blue-600 font-medium underline" href="/signup">
             Sign up
