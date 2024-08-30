@@ -45,7 +45,7 @@ export default async function ProtectedPage() {
             </p>
             <div className="flex justify-center space-x-8">
               <a
-                href="/dashboard"
+                href="/dashboard/projects"
                 className="flex items-center px-6 py-3 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 transition-all duration-300 transform hover:scale-105"
               >
                 <FaProjectDiagram className="mr-2" size={24} />
