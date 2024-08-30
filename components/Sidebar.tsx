@@ -5,7 +5,7 @@ const Sidebar = () => {
     <nav className="sidebar">
       <ul className="p-4">
         <li className="mb-4">
-          <Link href="/dashboard" className="text-lg">
+          <Link href="/dashboard/projects" className="text-lg">
             Tổng quan
           </Link>
         </li>
