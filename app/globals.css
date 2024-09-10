@@ -62,7 +62,7 @@ a:hover {
 }
 
 .sidebar {
-  width: 250px;
+  width: 200px;
   /* Chiều rộng cố định cho sidebar */
   height: 100vh;
   background-color: #1a73e8;
@@ -155,7 +155,7 @@ a:hover {
   text-decoration: underline;
 }
 .mainContent {
-  margin-left: 250px;
+  margin-left: 300px;
   /* Đảm bảo nội dung chính không bị sidebar đè lên */
   padding: 20px;
   flex-grow: 1;
@@ -170,5 +170,10 @@ a:hover {
 .flex-dash {
   display: flex;
   width: 200vh;
+  /* Đảm bảo container chiếm toàn bộ chiều cao màn hình */
+}
+.flex-dash-id {
+  display: flex;
+  width: 190vh;
   /* Đảm bảo container chiếm toàn bộ chiều cao màn hình */
 }

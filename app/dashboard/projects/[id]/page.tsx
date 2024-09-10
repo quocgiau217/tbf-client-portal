@@ -14,7 +14,7 @@ export default function ProjectDetails() {
   const router = useRouter();
 
   return (
-    <div className="flex-dash h-screen">
+    <div className="flex-dash-id h-screen">
       <div className="flex-1 flex flex-col">
         <TopBar />
         <main className="flex-1 p-6 bg-gray-100">
