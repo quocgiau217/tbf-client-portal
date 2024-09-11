@@ -155,25 +155,76 @@ a:hover {
   text-decoration: underline;
 }
 .mainContent {
-  margin-left: 300px;
+  margin-left: 200px;
   /* Đảm bảo nội dung chính không bị sidebar đè lên */
   padding: 20px;
   flex-grow: 1;
   /* Đảm bảo nội dung chính chiếm hết không gian còn lại */
   background-color: #f1f3f4;
   min-height: 100vh;
+  width: auto;
 }
 .flex {
   display: flex;
+
   /* Đảm bảo container chiếm toàn bộ chiều cao màn hình */
 }
 .flex-dash {
-  display: flex;
-  width: 200vh;
+  width: 190vh;
   /* Đảm bảo container chiếm toàn bộ chiều cao màn hình */
 }
 .flex-dash-id {
-  display: flex;
   width: 190vh;
   /* Đảm bảo container chiếm toàn bộ chiều cao màn hình */
+}
+.ganttContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.ganttHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ganttChartWrapper {
+  display: flex;
+  flex-direction: row;
+  /* Căn chỉnh bảng và biểu đồ nằm ngang */
+  width: 100%;
+  /* Chiếm hết chiều ngang */
+  justify-content: space-between;
+  /* Căn đều khoảng cách giữa các phần tử */
+}
+
+.ganttTable {
+  flex: 1;
+  min-width: 300px;
+  /* Cho phép bảng chiếm không gian còn lại */
+  margin-right: 10px;
+  /* Khoảng cách giữa bảng và biểu đồ */
+}
+
+.ganttChart {
+  flex: 2;
+  width: auto;
+  /* Cho phép biểu đồ chiếm không gian còn lại */
+}
+
+.ganttTable .e-ganttchart {
+  height: 600px;
+  /* Điều chỉnh chiều cao theo yêu cầu */
+}
+
+.ganttChart .e-ganttchart {
+  height: 600px;
+  /* Điều chỉnh chiều cao cho biểu đồ */
 }
