@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import TopBar from '../../../../components/TopBar';
 import SyncfusionGantt from '../../../../components/SyncfusionGantt';
 import { registerLicense } from '@syncfusion/ej2-base';
+import App from 'next/app';
 
 // Thay thế 'your-license-key' bằng key mà bạn đã nhận được từ Syncfusion
 registerLicense('Ngo9BigBOggjHTQxAR8/V1NCaF1cXGJCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXdceHZWQ2FeUUByWEQ=');

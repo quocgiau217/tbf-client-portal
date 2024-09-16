@@ -1,10 +1,11 @@
-import * as React from 'react';
-import { GanttComponent, Inject, ColumnsDirective, ColumnDirective, Selection, DayMarkers, Edit, Toolbar } from '@syncfusion/ej2-react-gantt';
+import React from 'react';
+import './gantt.css';
+import { Inject, Selection, DayMarkers, Edit, Toolbar } from '@syncfusion/ej2-react-gantt';
+import { GanttComponent, TaskFieldsModel, ColumnsDirective, ColumnDirective } from '@syncfusion/ej2-react-gantt';
 import { projectData } from './data';
 import '@syncfusion/ej2-base/styles/material.css';
 import '@syncfusion/ej2-react-gantt/styles/material.css';
-
-export default function SyncfusionGantt() {
+function SyncfusionGantt() {
   return (
     <div className="ganttContainer">
       <div className="ganttHeader">
@@ -46,3 +47,5 @@ export default function SyncfusionGantt() {
     </div>
   );
 }
+
+export default SyncfusionGantt;
