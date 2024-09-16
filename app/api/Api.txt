@@ -1,0 +1,7 @@
+API token
+907d6bbf-2ca0-4763-8cb8-f3eefb903b1a
+d7sk4ZtS6kG
+sut31GnD
+
+GET https://coda.io/apis/v1/docs/d7sk4ZtS6kG/tables/sut31GnD/rows
+Authorization: Bearer 907d6bbf-2ca0-4763-8cb8-f3eefb903b1a

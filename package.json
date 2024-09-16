@@ -8,7 +8,9 @@
   "dependencies": {
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
-    "@syncfusion/ej2-react-gantt": "^26.2.11",
+    "@syncfusion/ej2-base": "^26.2.10",
+    "@syncfusion/ej2-buttons": "^26.2.10",
+    "@syncfusion/ej2-react-gantt": "^26.2.14",
     "autoprefixer": "10.4.17",
     "clsx": "^2.1.1",
     "geist": "^1.2.1",
