@@ -7,6 +7,7 @@ export const projectData = [
     Duration: 10,
     Progress: 70,
     Predeceesor: null,
+    Cost: 5000, // Thêm trường Cost
     SubTasks: [
       {
         TaskID: 2,
@@ -16,6 +17,7 @@ export const projectData = [
         Duration: 4,
         Progress: 80,
         Predeceesor: null,
+        Cost: 1000,
       },
       {
         TaskID: 3,
@@ -25,6 +27,7 @@ export const projectData = [
         Duration: 3,
         Progress: 60,
         Predeceesor: '2',
+        Cost: 1500,
       },
       {
         TaskID: 4,
@@ -34,6 +37,7 @@ export const projectData = [
         Duration: 2,
         Progress: 90,
         Predeceesor: '3',
+        Cost: 800,
       },
     ],
   },
@@ -45,6 +49,7 @@ export const projectData = [
     Duration: 10,
     Progress: 50,
     Predeceesor: '4',
+    Cost: 7000,
     SubTasks: [
       {
         TaskID: 6,
@@ -54,6 +59,7 @@ export const projectData = [
         Duration: 4,
         Progress: 75,
         Predeceesor: '4',
+        Cost: 2000,
       },
       {
         TaskID: 7,
@@ -63,6 +69,7 @@ export const projectData = [
         Duration: 4,
         Progress: 60,
         Predeceesor: '6',
+        Cost: 2500,
       },
       {
         TaskID: 8,
@@ -72,6 +79,7 @@ export const projectData = [
         Duration: 2,
         Progress: 80,
         Predeceesor: '7',
+        Cost: 1000,
       },
     ],
   },
@@ -83,6 +91,7 @@ export const projectData = [
     Duration: 25,
     Progress: 40,
     Predeceesor: '8',
+    Cost: 15000,
     SubTasks: [
       {
         TaskID: 10,
@@ -92,6 +101,7 @@ export const projectData = [
         Duration: 15,
         Progress: 50,
         Predeceesor: '8',
+        Cost: 7000,
       },
       {
         TaskID: 11,
@@ -101,6 +111,7 @@ export const projectData = [
         Duration: 10,
         Progress: 40,
         Predeceesor: '10',
+        Cost: 5000,
       },
       {
         TaskID: 12,
@@ -110,6 +121,7 @@ export const projectData = [
         Duration: 5,
         Progress: 30,
         Predeceesor: '11',
+        Cost: 3000,
       },
       {
         TaskID: 13,
@@ -119,6 +131,7 @@ export const projectData = [
         Duration: 5,
         Progress: 50,
         Predeceesor: '12',
+        Cost: 2000,
       },
     ],
   },
@@ -130,6 +143,7 @@ export const projectData = [
     Duration: 8,
     Progress: 50,
     Predeceesor: '13',
+    Cost: 8000,
     SubTasks: [
       {
         TaskID: 15,
@@ -139,6 +153,7 @@ export const projectData = [
         Duration: 2,
         Progress: 90,
         Predeceesor: '13',
+        Cost: 1000,
       },
       {
         TaskID: 16,
@@ -148,6 +163,7 @@ export const projectData = [
         Duration: 3,
         Progress: 70,
         Predeceesor: '15',
+        Cost: 2000,
       },
       {
         TaskID: 17,
@@ -157,6 +173,7 @@ export const projectData = [
         Duration: 3,
         Progress: 80,
         Predeceesor: '16',
+        Cost: 3000,
       },
     ],
   },
@@ -168,6 +185,7 @@ export const projectData = [
     Duration: 5,
     Progress: 70,
     Predeceesor: '17',
+    Cost: 5000,
     SubTasks: [
       {
         TaskID: 19,
@@ -177,6 +195,7 @@ export const projectData = [
         Duration: 2,
         Progress: 80,
         Predeceesor: '17',
+        Cost: 2000,
       },
       {
         TaskID: 20,
@@ -186,6 +205,7 @@ export const projectData = [
         Duration: 3,
         Progress: 60,
         Predeceesor: '19',
+        Cost: 3000,
       },
     ],
   },
