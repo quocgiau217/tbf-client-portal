@@ -60,7 +60,7 @@ export default async function Index() {
               Login to your Account
             </a>
             <a
-              href="/dashboard/projects"
+              href="/dashboard/clients"
               className="flex items-center px-6 py-3 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 transition-all duration-300 transform hover:scale-105"
             >
               <FaProjectDiagram className="mr-2" size={24} />

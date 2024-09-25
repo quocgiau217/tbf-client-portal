@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2015", // Hoặc "esnext" nếu bạn muốn hỗ trợ đầy đủ các tính năng ES mới nhất
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -14,6 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "downlevelIteration": true, // Thêm dòng này để hỗ trợ duyệt các cấu trúc dữ liệu ES6+ như Set, Map
     "plugins": [
       {
         "name": "next"
