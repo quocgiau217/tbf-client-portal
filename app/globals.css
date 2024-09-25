@@ -229,3 +229,27 @@ a:hover {
   height: 600px;
   /* Điều chỉnh chiều cao cho biểu đồ */
 }
+.projectCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #1a73e8;
+}
+
+.detailButton {
+  padding: 5px 10px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.detailButton:hover {
+  background-color: #005bb5;
+}
