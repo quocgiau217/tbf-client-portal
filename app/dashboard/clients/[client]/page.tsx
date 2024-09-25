@@ -3,11 +3,12 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import TopBar from '../../../../components/TopBar';
-import GanttChart from '../../../../components/GanttChart'; // Đảm bảo import đúng
+import GanttChart from '../../../../components/GanttChart';
 import { registerLicense } from '@syncfusion/ej2-base';
 
-// Thay thế 'your-license-key' bằng key mà bạn đã nhận được từ Syncfusion
+// Đăng ký license của Syncfusion
 registerLicense('Ngo9BigBOggjHTQxAR8/V1NCaF1cXGJCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXdceHZWQ2FeUUByWEQ=');
+
 // Định nghĩa kiểu dữ liệu cho dự án
 type ProjectItem = {
   values: {
@@ -51,6 +52,7 @@ const ClientDetailPage = () => {
   const params = useParams();
   let client = params.client;
 
+  // Kiểm tra nếu client là mảng, lấy phần tử đầu tiên
   if (Array.isArray(client)) {
     client = client[0]; // Lấy phần tử đầu tiên nếu là mảng
   }
@@ -61,9 +63,14 @@ const ClientDetailPage = () => {
   useEffect(() => {
     if (client) {
       const getProjects = async () => {
-        const projectData = await fetchProjects(client);
-        setProjects(projectData);
-        setGanttData(prepareGanttData(projectData)); // Chuẩn bị dữ liệu cho Gantt
+        // Kiểm tra lần nữa và chỉ gọi hàm khi client là một string
+        if (typeof client === 'string') {
+          const projectData = await fetchProjects(client);
+          setProjects(projectData);
+          setGanttData(prepareGanttData(projectData)); // Chuẩn bị dữ liệu cho Gantt
+        } else {
+          console.error("Client is not a string.");
+        }
       };
       getProjects();
     }
@@ -101,8 +108,10 @@ const ClientDetailPage = () => {
             <h2 className="text-2xl text-black font-semibold">Projects of {client}</h2>
           </div>
           <div className="ganttContainer">
-            {ganttData.length > 0 && (
+            {ganttData.length > 0 ? (
               <GanttChart data={ganttData} /> // Sử dụng component GanttChart và truyền dữ liệu
+            ) : (
+              <p>No data available</p>
             )}
           </div>
         </main>
@@ -112,3 +121,4 @@ const ClientDetailPage = () => {
 };
 
 export default ClientDetailPage;
+
