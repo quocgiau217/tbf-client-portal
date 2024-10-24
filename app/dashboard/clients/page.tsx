@@ -1,25 +1,24 @@
-"use client";
+'use client'; // Next.js yêu cầu 'use client' cho các component có trạng thái (state) và hiệu ứng (effect)
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link'; // Thêm Link từ Next.js
+import Link from 'next/link';
 import Sidebar from '../../../components/Sidebar';
 import TopBar from '../../../components/TopBar';
-// Định nghĩa kiểu dữ liệu cho các client
-type Client = string; // Thay bằng kiểu dữ liệu phù hợp nếu cần
 
 // Định nghĩa kiểu dữ liệu cho các mục trong dự án
 type ProjectItem = {
   values: {
     "c-zt1MQpa88S": string;
-    [key: string]: any; // Các thuộc tính khác nếu cần
+    [key: string]: any;
   };
 };
 
 const fetchProjects = async (): Promise<ProjectItem[]> => {
   try {
-    const response = await fetch('https://coda.io/apis/v1/docs/7sk4ZtS6kG/tables/table-rDuaevjmdx/rows', {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+    const response = await fetch(`${apiUrl}/api/fetch-data`, {
       headers: {
-        Authorization: `Bearer e37f2e4c-4a92-448c-86f3-8cad58a80c0a`, // Thay bằng token của bạn
+        'Content-Type': 'application/json',
       },
     });
 
@@ -29,33 +28,33 @@ const fetchProjects = async (): Promise<ProjectItem[]> => {
 
     const data = await response.json();
 
-    if (!data.items) {
-      throw new Error("API response does not contain 'items'");
+    if (!data) {
+      throw new Error("API response does not contain data");
     }
 
-    return data.items;
+    return data;
   } catch (error) {
     console.error(error);
-    return []; // Trả về mảng rỗng nếu có lỗi
+    return [];
   }
 };
 
 const ClientsPage = () => {
-  // Khai báo kiểu cho state
-  const [clients, setClients] = useState<Client[]>([]);
+  const [clients, setClients] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getClients = async () => {
+      setLoading(true);
       const projects = await fetchProjects();
+      setLoading(false);
 
-      // Kiểm tra nếu `projects` có dữ liệu
       if (!projects || projects.length === 0) {
         console.warn("No projects data available");
         return;
       }
 
-      // Đảm bảo rằng `projects` có kiểu dữ liệu `ProjectItem[]`
-      const uniqueClients: Client[] = Array.from(new Set(projects.map(item => item.values["c-zt1MQpa88S"])));
+      const uniqueClients: string[] = Array.from(new Set(projects.map(item => item.values["c-zt1MQpa88S"])));
 
       setClients(uniqueClients);
     };
@@ -63,22 +62,29 @@ const ClientsPage = () => {
   }, []);
 
   return (
-     <div className="flex-dash">
+    <div className="flex-dash">
       <Sidebar />
       <div className="mainContent">
         <TopBar />
         <h2 className="dashboardHeader">Clients</h2>
-        <div className="projectList">
-          {clients.map((client, index) => (
-            <li key={index} className="projectCard">
-              <span>{client}</span>
-              {/* Nút Xem chi tiết */}
-              <Link href={`/dashboard/clients/${encodeURIComponent(client)}`}>
-                <button className="detailButton">Xem chi tiết</button>
-              </Link>
-            </li>
-          ))}
-        </div>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="projectList">
+            {clients.length === 0 ? (
+              <p>No clients found</p>
+            ) : (
+              clients.map((client, index) => (
+                <li key={index} className="projectCard">
+                  <span>{client}</span>
+                  <Link href={`/dashboard/clients/${encodeURIComponent(client)}`}>
+                    <button className="detailButton">Xem chi tiết</button>
+                  </Link>
+                </li>
+              ))
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
