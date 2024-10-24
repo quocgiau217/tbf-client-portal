@@ -56,8 +56,8 @@ const ClientDetailPage = () => {
     client = client[0];
   }
 
-  if (!client) {
-    return <div>Error: Client parameter is missing</div>;
+  if (typeof client !== 'string') {
+    return <div>Error: Client parameter is missing or invalid</div>;
   }
 
   client = decodeURIComponent(client); // Giải mã URL để sử dụng tên Client chính xác
