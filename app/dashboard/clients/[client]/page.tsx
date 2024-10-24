@@ -57,6 +57,7 @@ const ClientDetailPage = () => {
   }
 
   if (typeof client !== 'string') {
+    // Nếu client vẫn không phải kiểu string, dừng render và hiển thị lỗi
     return <div>Error: Client parameter is missing or invalid</div>;
   }
 
