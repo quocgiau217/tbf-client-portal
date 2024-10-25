@@ -49,19 +49,17 @@ const fetchProjects = async (client: string): Promise<ProjectItem[]> => {
 const ClientDetailPage = () => {
   const router = useRouter();
   const params = useParams();
-  let client = params.client;
+  const clientParam = params.client;
 
-  // Đảm bảo rằng client luôn là kiểu string
-  if (Array.isArray(client)) {
-    client = client[0];
-  }
+  // Đảm bảo rằng clientParam luôn là kiểu string
+  const client = Array.isArray(clientParam) ? clientParam[0] : clientParam;
 
   if (typeof client !== 'string') {
-    // Nếu client vẫn không phải kiểu string, dừng render và hiển thị lỗi
+    // Nếu client không phải là chuỗi, dừng render và hiển thị lỗi
     return <div>Error: Client parameter is missing or invalid</div>;
   }
 
-  client = decodeURIComponent(client); // Giải mã URL để sử dụng tên Client chính xác
+  const decodedClient = decodeURIComponent(client); // Giải mã URL để sử dụng tên Client chính xác
 
   const [projects, setProjects] = useState<ProjectItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,10 +68,10 @@ const ClientDetailPage = () => {
   const pageSize = 12; // Số lượng dự án hiển thị trên mỗi trang
 
   useEffect(() => {
-    if (client) {
+    if (decodedClient) {
       const getProjects = async () => {
         try {
-          const projectData = await fetchProjects(client);
+          const projectData = await fetchProjects(decodedClient);
           setProjects(projectData);
         } catch (error) {
           setError("Failed to load project data");
@@ -83,7 +81,7 @@ const ClientDetailPage = () => {
       };
       getProjects();
     }
-  }, [client]);
+  }, [decodedClient]);
 
   const ganttData = useMemo(() => {
     return projects.map((project, index) => ({
@@ -128,7 +126,7 @@ const ClientDetailPage = () => {
             >
               Back
             </button>
-            <h2 className="text-2xl text-black font-semibold">Projects of {client}</h2>
+            <h2 className="text-2xl text-black font-semibold">Projects of {decodedClient}</h2>
           </div>
           <div className="ganttContainer">
             {paginatedData.length > 0 ? (
