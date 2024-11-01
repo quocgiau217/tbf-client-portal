@@ -27,14 +27,15 @@ const fetchProjects = async (): Promise<ProjectItem[]> => {
     }
 
     const data = await response.json();
+    console.log("Data fetched from API:", data); // Kiểm tra dữ liệu nhận được từ API
 
-    if (!data) {
-      throw new Error("API response does not contain data");
+    if (!data || !Array.isArray(data)) {
+      throw new Error("API response is not in the expected format");
     }
 
     return data;
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching projects:", error);
     return [];
   }
 };
@@ -42,22 +43,32 @@ const fetchProjects = async (): Promise<ProjectItem[]> => {
 const ClientsPage = () => {
   const [clients, setClients] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const getClients = async () => {
       setLoading(true);
-      const projects = await fetchProjects();
-      setLoading(false);
+      setError(null); // Reset lỗi trước khi gọi API
 
-      if (!projects || projects.length === 0) {
-        console.warn("No projects data available");
-        return;
+      try {
+        const projects = await fetchProjects();
+
+        if (!projects || projects.length === 0) {
+          console.warn("No projects data available");
+          setError("No projects data found");
+          setClients([]); // Đặt lại danh sách khách hàng
+          return;
+        }
+
+        const uniqueClients: string[] = Array.from(new Set(projects.map(item => item.values["c-zt1MQpa88S"])));
+        setClients(uniqueClients);
+      } catch (error) {
+        setError("Failed to load clients. Please try again.");
+      } finally {
+        setLoading(false);
       }
-
-      const uniqueClients: string[] = Array.from(new Set(projects.map(item => item.values["c-zt1MQpa88S"])));
-
-      setClients(uniqueClients);
     };
+
     getClients();
   }, []);
 
@@ -67,8 +78,11 @@ const ClientsPage = () => {
       <div className="mainContent">
         <TopBar />
         <h2 className="dashboardHeader">Clients</h2>
+
         {loading ? (
           <p>Loading...</p>
+        ) : error ? (
+          <p style={{ color: 'red' }}>{error}</p>
         ) : (
           <div className="projectList">
             {clients.length === 0 ? (

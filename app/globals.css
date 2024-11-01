@@ -156,7 +156,7 @@ a:hover {
   text-decoration: underline;
 }
 .mainContent {
-  margin-left: 200px;
+  margin-left: 160px;
   /* Đảm bảo nội dung chính không bị sidebar đè lên */
   padding: 20px;
   flex-grow: 1;
@@ -175,7 +175,7 @@ a:hover {
   /* Đảm bảo container chiếm toàn bộ chiều cao màn hình */
 }
 .flex-dash-id {
-  width: 190vh;
+  width: 198vh;
   /* Đảm bảo container chiếm toàn bộ chiều cao màn hình */
 }
 .ganttContainer {

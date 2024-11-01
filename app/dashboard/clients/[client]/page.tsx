@@ -1,4 +1,4 @@
-'use client'; // Next.js yêu cầu 'use client' cho các component có trạng thái (state) và hiệu ứng (effect)
+'use client';
 
 import { useState, useEffect, useMemo } from 'react';
 import { useRouter, useParams } from 'next/navigation';
@@ -15,6 +15,7 @@ type ProjectItem = {
     "c-uVBERGtt-s": string; // Project Name
     "c-NrAMVgDqCI": string; // Start Date
     "c-6N3-GEbEJz": string; // End Date
+    "c-UN3Pb9mdO4": string; // Status (Progress)
     "c-8dyhQjZDNC": string; // USD
     [key: string]: any;
   };
@@ -50,22 +51,19 @@ const ClientDetailPage = () => {
   const router = useRouter();
   const params = useParams();
   const clientParam = params.client;
-
-  // Đảm bảo rằng clientParam luôn là kiểu string
   const client = Array.isArray(clientParam) ? clientParam[0] : clientParam;
 
   if (typeof client !== 'string') {
-    // Nếu client không phải là chuỗi, dừng render và hiển thị lỗi
     return <div>Error: Client parameter is missing or invalid</div>;
   }
 
-  const decodedClient = decodeURIComponent(client); // Giải mã URL để sử dụng tên Client chính xác
+  const decodedClient = decodeURIComponent(client);
 
   const [projects, setProjects] = useState<ProjectItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
-  const pageSize = 12; // Số lượng dự án hiển thị trên mỗi trang
+  const pageSize = 12;
 
   useEffect(() => {
     if (decodedClient) {
@@ -84,22 +82,26 @@ const ClientDetailPage = () => {
   }, [decodedClient]);
 
   const ganttData = useMemo(() => {
-    return projects.map((project, index) => ({
-      TaskID: index + 1,
-      TaskName: project.values["c-uVBERGtt-s"],
-      StartDate: new Date(project.values["c-NrAMVgDqCI"]),
-      EndDate: new Date(project.values["c-6N3-GEbEJz"]),
-      Duration: Math.ceil(
-        (new Date(project.values["c-6N3-GEbEJz"]).getTime() - new Date(project.values["c-NrAMVgDqCI"]).getTime()) /
-        (1000 * 60 * 60 * 24)
-      ),
-      Progress: 50,
-      ParentID: null,
-      USD: project.values["c-8dyhQjZDNC"]
-    }));
+    return projects.map((project, index) => {
+      const startDate = new Date(project.values["c-NrAMVgDqCI"]);
+      const endDate = new Date(project.values["c-6N3-GEbEJz"]);
+      const duration = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+      const progress = project.values["c-UN3Pb9mdO4"]; // Lấy trực tiếp giá trị chuỗi từ API
+      const usd = parseFloat(project.values["c-8dyhQjZDNC"].replace(/[^0-9.-]+/g, "")) || 0;
+
+      return {
+        TaskID: index + 1,
+        TaskName: project.values["c-uVBERGtt-s"],
+        StartDate: startDate,
+        EndDate: endDate,
+        Duration: duration,
+        Progress: progress, // Để giữ nguyên giá trị chuỗi
+        ParentID: null,
+        USD: usd,
+      };
+    });
   }, [projects]);
 
-  // Lấy dữ liệu cho trang hiện tại
   const paginatedData = useMemo(() => {
     const startIndex = (page - 1) * pageSize;
     const endIndex = startIndex + pageSize;
