@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Sidebar from '../../../components/Sidebar';
 import TopBar from '../../../components/TopBar';
+import { createClient } from "@/utils/supabase/client";
 
-// Định nghĩa kiểu dữ liệu cho các mục trong dự án
 type ProjectItem = {
   values: {
-    "c-zt1MQpa88S": string;
+    "c-zt1MQpa88S": string; // Client Name
     [key: string]: any;
   };
 };
@@ -44,6 +44,38 @@ const ClientsPage = () => {
   const [clients, setClients] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [user, setUser] = useState<any>(null);
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    const getUserData = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        setUser(user);
+
+        // Lấy vai trò người dùng từ bảng user_roles
+        const { data: userRole, error } = await supabase
+          .from('user_roles')
+          .select('roles_name')
+          .eq('user_id', user.id)
+          .single();
+
+        if (error) {
+          console.error('Error fetching user role:', error);
+          setRole('No role');
+        } else {
+          setRole(userRole ? userRole.roles_name : 'No role');
+        }
+      }
+    };
+
+    getUserData();
+  }, []);
 
   useEffect(() => {
     const getClients = async () => {
@@ -60,7 +92,13 @@ const ClientsPage = () => {
           return;
         }
 
-        const uniqueClients: string[] = Array.from(new Set(projects.map(item => item.values["c-zt1MQpa88S"])));
+        // Lọc danh sách dự án dựa trên vai trò của người dùng
+        let filteredProjects = projects;
+        if (role && role !== 'admin') {
+          filteredProjects = projects.filter(item => item.values["c-zt1MQpa88S"] === role);
+        }
+
+        const uniqueClients: string[] = Array.from(new Set(filteredProjects.map(item => item.values["c-zt1MQpa88S"])));
         setClients(uniqueClients);
       } catch (error) {
         setError("Failed to load clients. Please try again.");
@@ -69,14 +107,17 @@ const ClientsPage = () => {
       }
     };
 
-    getClients();
-  }, []);
+    if (role) {
+      getClients();
+    }
+  }, [role]);
 
   return (
     <div className="flex-dash">
       <Sidebar />
       <div className="mainContent">
-        <TopBar />
+        {/* Truyền user và role vào TopBar */}
+        <TopBar user={user} role={role} />
         <h2 className="dashboardHeader">Clients</h2>
 
         {loading ? (

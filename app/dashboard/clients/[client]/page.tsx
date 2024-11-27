@@ -5,20 +5,28 @@ import { useRouter, useParams } from 'next/navigation';
 import TopBar from '../../../../components/TopBar';
 import GanttChart from '../../../../components/GanttChart';
 import { registerLicense } from '@syncfusion/ej2-base';
+import { createClient } from "@/utils/supabase/client";
 
 registerLicense('Ngo9BigBOggjHTQxAR8/V1NCaF1cXGJCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXdceHZWQ2FeUUByWEQ=');
 
-// Định nghĩa kiểu dữ liệu cho các mục trong dự án
 type ProjectItem = {
   values: {
     "c-zt1MQpa88S": string; // Client Name
     "c-uVBERGtt-s": string; // Project Name
     "c-NrAMVgDqCI": string; // Start Date
     "c-6N3-GEbEJz": string; // End Date
-    "c-UN3Pb9mdO4": string; // Status (Progress)
+    "c-UN3Pb9mdO4": string; // Status
     "c-8dyhQjZDNC": string; // USD
     [key: string]: any;
   };
+};
+
+const statusMap: { [key: string]: string } = {
+  "1": "1-Qualifying",
+  "2": "2-Follow up",
+  "3": "3-Awarded On-going",
+  "4": "4-Completed",
+  "99": "99-Rejected"
 };
 
 const fetchProjects = async (client: string): Promise<ProjectItem[]> => {
@@ -62,23 +70,56 @@ const ClientDetailPage = () => {
   const [projects, setProjects] = useState<ProjectItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [user, setUser] = useState<any>(null);
+  const [role, setRole] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const pageSize = 12;
 
   useEffect(() => {
-    if (decodedClient) {
-      const getProjects = async () => {
-        try {
-          const projectData = await fetchProjects(decodedClient);
-          setProjects(projectData);
-        } catch (error) {
-          setError("Failed to load project data");
-        } finally {
-          setLoading(false);
+    const supabase = createClient();
+
+    const getUserData = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        setUser(user);
+
+        // Lấy vai trò người dùng từ bảng user_roles
+        const { data: userRole, error } = await supabase
+          .from('user_roles')
+          .select('roles_name')
+          .eq('user_id', user.id)
+          .single();
+
+        if (error) {
+          console.error('Error fetching user role:', error);
+          setRole('No role');
+        } else {
+          setRole(userRole ? userRole.roles_name : 'No role');
         }
-      };
-      getProjects();
-    }
+      }
+    };
+
+    getUserData();
+  }, []);
+
+  useEffect(() => {
+    const getProjects = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const projectData = await fetchProjects(decodedClient);
+        setProjects(projectData);
+      } catch (error) {
+        setError("Failed to load project data");
+      } finally {
+        setLoading(false);
+      }
+    };
+    getProjects();
   }, [decodedClient]);
 
   const ganttData = useMemo(() => {
@@ -86,7 +127,12 @@ const ClientDetailPage = () => {
       const startDate = new Date(project.values["c-NrAMVgDqCI"]);
       const endDate = new Date(project.values["c-6N3-GEbEJz"]);
       const duration = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-      const progress = project.values["c-UN3Pb9mdO4"]; // Lấy trực tiếp giá trị chuỗi từ API
+
+      const rawStatus = project.values["c-UN3Pb9mdO4"];
+      const status = statusMap[rawStatus] !== undefined ? statusMap[rawStatus] : rawStatus;
+
+      console.log(`Project ${index + 1}:`, { rawStatus, status });
+
       const usd = parseFloat(project.values["c-8dyhQjZDNC"].replace(/[^0-9.-]+/g, "")) || 0;
 
       return {
@@ -95,7 +141,7 @@ const ClientDetailPage = () => {
         StartDate: startDate,
         EndDate: endDate,
         Duration: duration,
-        Progress: progress, // Để giữ nguyên giá trị chuỗi
+        Status: status,
         ParentID: null,
         USD: usd,
       };
@@ -119,7 +165,8 @@ const ClientDetailPage = () => {
   return (
     <div className="flex-dash-id">
       <div className="flex-1 flex flex-col">
-        <TopBar />
+        {/* Truyền user và role vào TopBar */}
+        <TopBar user={user} role={role} />
         <main className="flex-1 p-6 bg-gray-100">
           <div className="flex items-center mb-4">
             <button
